@@ -1,6 +1,6 @@
 <?php
 
-namespace LinkLater\Http\Middleware;
+namespace Matthewbdaly\LaravelDevheader\Http\Middleware;
 
 use Closure;
 use DOMDocument;
@@ -25,6 +25,10 @@ class DevHeader
     public function handle($request, Closure $next)
     {
         $response = $next($request);
+        $env = config('app.env');
+        if ($env == 'production') {
+            return $response;
+        }
         if (stristr($response->headers->get('Content-Type'), 'text/html')) {
             try {
                 $doc = new DOMDocument;
@@ -33,7 +37,7 @@ class DevHeader
                 $body = $doc->getElementsByTagName('body')[0];
                 $body->setAttribute('style', 'padding-top: 30px;');
                 $heading = $doc->createElement('p');
-                $heading->textContent = ucfirst(config('app.env'));
+                $heading->textContent = ucfirst($env);
                 $node = $doc->createElement('div');
                 $node->appendChild($heading);
                 $node->setAttribute('style', 'width: 100%; height: 30px; position: absolute; top: 0; background: tomato; text-align: center; padding-top: 5px; z-index: 99999;');
