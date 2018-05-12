@@ -1,6 +1,6 @@
 {
-    "name": "matthewbdaly/laravel-package-boilerplate",
-    "description": "Starting boilerplate for Laravel packages. Override the content in here when creating your own package",
+    "name": "matthewbdaly/laravel-devheader",
+    "description": "Laravel middleware that adds a header to the page when not in production so you don't mix up dev, staging and production environments",
     "type": "library",
     "keywords": ["laravel","lumen"],
     "require": {},
